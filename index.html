@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>النظام السيبراني المتطور 3.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00fff2;
+            --secondary-color: #ff003c;
+            --accent-color: #9d00ff;
+            --bg-color: #000913;
+            --glow-color: #00fff2;
+        }
+
+        @keyframes matrixRain {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes hologram {
+            0% { opacity: 0.5; transform: perspective(500px) rotateY(0deg); }
+            50% { opacity: 1; transform: perspective(500px) rotateY(180deg); }
+            100% { opacity: 0.5; transform: perspective(500px) rotateY(360deg); }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg-color);
+            font-family: 'Cairo', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* تأثير المطر الرقمي */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, 
+                rgba(0, 255, 242, 0.1) 25%,
+                rgba(157, 0, 255, 0.1) 50%,
+                rgba(255, 0, 60, 0.1) 75%);
+            animation: matrixRain 20s linear infinite;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        /* تأثير الشبكة الهولوغرامية */
+        .hologram-grid {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(0, 255, 242, 0.1) 1px, transparent 1px) 0 0,
+                linear-gradient(rgba(0, 255, 242, 0.1) 1px, transparent 1px) 0 0;
+            background-size: 30px 30px;
+            animation: float 10s infinite;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            position: relative;
+            background: rgba(0, 9, 19, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 242, 0.3),
+                inset 0 0 20px rgba(0, 255, 242, 0.2);
+        }
+
+        /* إطار هولوغرامي متحرك */
+        .cyber-frame {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
+            z-index: -1;
+            overflow: hidden;
+            animation: hologram 10s infinite;
+        }
+
+        .cyber-frame::before,
+        .cyber-frame::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(0, 255, 242, 0.2) 50%,
+                transparent 100%
+            );
+            animation: rotate 20s linear infinite;
+        }
+
+        /* زر الاختراق المتطور */
+        .hack-button {
+            background: transparent;
+            color: var(--primary-color);
+            border: none;
+            padding: 1.5rem 3rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            border-radius: 15px;
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            text-transform: uppercase;
+        }
+
+        .hack-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(0, 255, 242, 0.2),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .hack-button:hover::before {
+            transform: translateX(100%);
+        }
+
+        .hack-button::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: rgba(0, 9, 19, 0.9);
+            border-radius: 12px;
+            z-index: -1;
+        }
+
+        .hack-button:hover {
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary-color);
+            box-shadow: 
+                0 0 20px var(--primary-color),
+                0 0 40px var(--primary-color),
+                0 0 80px var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        /* تأثيرات الهولوغرام للفيديو */
+        .video-container {
+            position: relative;
+            margin: 2rem 0;
+            border-radius: 15px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(0, 255, 242, 0.2),
+                transparent 70%
+            );
+            pointer-events: none;
+        }
+
+        #video, #photo {
+            width: 100%;
+            border-radius: 15px;
+            transform: scaleX(-1);
+            filter: brightness(1.2) contrast(1.2);
+        }
+
+        /* شريط التقدم المتطور */
+        .progress-container {
+            height: 30px;
+            background: rgba(0, 255, 242, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                var(--primary-color),
+                var(--accent-color),
+                var(--secondary-color)
+            );
+            position: relative;
+            transition: width 0.5s ease;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            animation: progressGlow 2s linear infinite;
+        }
+
+        /* المزيد من التأثيرات والأنيميشن */
+        /* Terminal متطور */
+        .terminal {
+            background: rgba(0, 9, 19, 0.95);
+            border: 1px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            height: 300px;
+            overflow-y: auto;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+            color: var(--primary-color);
+            border-radius: 15px;
+            position: relative;
+            display: none;
+        }
+
+        .terminal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(
+                to bottom,
+                var(--primary-color) 0%,
+                transparent 100%
+            );
+            opacity: 0.1;
+        }
+
+        .terminal-line {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            animation: typingEffect 0.5s steps(40, end);
+        }
+
+        @keyframes typingEffect {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* تأثيرات هولوغرامية إضافية */
+        .hologram-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    rgba(0, 255, 242, 0.1) 2px,
+                    transparent 4px
+                );
+            pointer-events: none;
+            animation: hologramScan 8s linear infinite;
+        }
+
+        @keyframes hologramScan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* نظام تحليل متقدم */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .analysis-box {
+            background: rgba(0, 9, 19, 0.8);
+            border: 1px solid var(--primary-color);
+            padding: 1rem;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .analysis-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle,
+                transparent 30%,
+                rgba(0, 255, 242, 0.1) 70%
+            );
+            animation: rotate 20s linear infinite;
+        }
+
+        /* تأثيرات صوتية وتحليل */
+        .audio-visualizer {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        .audio-bar {
+            width: 3px;
+            background: var(--primary-color);
+            height: 20px;
+            margin: 0 2px;
+            border-radius: 2px;
+            animation: audioVisualize 0.5s ease infinite;
+        }
+
+        @keyframes audioVisualize {
+            0%, 100% { height: 20px; }
+            50% { height: 40px; }
+        }
+
+        /* تأثيرات الجلتش المتقدمة */
+        .glitch-effect {
+            position: relative;
+            color: var(--primary-color);
+            text-shadow: 
+                2px 2px var(--secondary-color),
+                -2px -2px var(--accent-color);
+            animation: glitchText 0.5s infinite;
+        }
+
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 242, 0.1) 0px,
+                transparent 1px,
+                transparent 2px
+            );
+            animation: glitchOverlay 2s infinite;
+        }
+
+        /* تحسينات للموبايل */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 1rem;
+            }
+
+            .hack-button {
+                font-size: 1.2rem;
+                padding: 1rem 2rem;
+            }
+
+            .terminal {
+                height: 200px;
+            }
+
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    <div class="hologram-grid"></div>
+    <div class="glitch-overlay"></div>
+
+    <div class="container">
+        <div class="cyber-frame"></div>
+        <div class="hologram-effect"></div>
+
+        <button class="hack-button" onclick="initiateHack()">
+            <i class="fas fa-microchip"></i>
+            تشغيل النظام المتقدم
+            <i class="fas fa-terminal"></i>
+        </button>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="analysis-grid">
+            <div class="analysis-box">
+                <h3>تحليل النظام</h3>
+                <div class="audio-visualizer">
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                </div>
+            </div>
+            <div class="analysis-box">
+                <h3>حالة الاتصال</h3>
+                <div id="status">جاهز للتشغيل</div>
+            </div>
+        </div>
+
+        <div class="terminal" id="terminal"></div>
+
+        <div class="video-container">
+            <video id="video" autoplay></video>
+            <canvas id="videoCanvas"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const hackingPhrases = [
+            "جاري تهيئة النظام المتقدم...",
+            "تحليل بروتوكولات الأمان...",
+            "اختراق جدران الحماية...",
+            "فك تشفير البيانات المتقدمة...",
+            "تجاوز أنظمة المراقبة...",
+            "الوصول إلى قاعدة البيانات...",
+            "تحميل البرامج المتقدمة...",
+            "تفعيل الخوارزميات...",
+            "اكتمال عملية الاختراق..."
+        ];
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function addTerminalLine(text, delay = 100) {
+            const terminal = document.getElementById('terminal');
+            const line = document.createElement('div');
+            line.className = 'terminal-line';
+            
+            for (let char of text) {
+                await sleep(50);
+                line.textContent += char;
+            }
+            
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
+            await sleep(delay);
+        }
+
+        async function initiateHack() {
+            const terminal = document.getElementById('terminal');
+            terminal.style.display = 'block';
+            const progressBar = document.getElementById('progressBar');
+            const button = document.querySelector('.hack-button');
+            
+            button.disabled = true;
+            button.style.opacity = '0.5';
+
+            // إضافة تأثيرات صوتية
+            const hackSound = new Audio('data:audio/wav;base64,UklGRn...');
+            hackSound.play();
+
+            for (let i = 0; i < hackingPhrases.length; i++) {
+                await addTerminalLine(hackingPhrases[i]);
+                progressBar.style.width = `${(i + 1) * (100 / hackingPhrases.length)}%`;
+            }
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'user' }
+                });
+                
+                const video = document.getElementById('video');
+                video.srcObject = stream;
+                document.querySelector('.video-container').style.display = 'block';
+
+                // إضافة تأثيرات متقدمة للفيديو
+                const canvas = document.getElementById('videoCanvas');
+                const ctx = canvas.getContext('2d');
+                
+                function processFrame() {
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    // إضافة تأثيرات معالجة الصور
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    // تطبيق تأثيرات متقدمة
+                    ctx.putImageData(imageData, 0, 0);
+                    requestAnimationFrame(processFrame);
+                }
+
+                video.onplay = () => {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    processFrame();
+                };
+
+            } catch (error) {
+                await addTerminalLine(`تم اللأختراق بنجاح الهكر M يسلم عليك: ${error.message}`);
+            }
+        }
+
+        // إضافة تأثيرات الخلفية المتحركة
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            document.documentElement.style.setProperty('--mouse-x', x);
+            document.documentElement.style.setProperty('--mouse-y', y);
+        });
+    </script>
+</body>
+</html>
